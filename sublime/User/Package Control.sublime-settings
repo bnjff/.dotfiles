@@ -1,0 +1,18 @@
+{
+	"bootstrapped": true,
+	"in_process_packages":
+	[
+	],
+	"installed_packages":
+	[
+		"CMake",
+		"Jedi - Python autocompletion",
+		"MarkdownEditing",
+		"MarkdownPreview",
+		"Package Control",
+		"Six",
+		"SublimeAStyleFormatter",
+		"SublimeLinter",
+		"SublimeLinter-flake8"
+	]
+}

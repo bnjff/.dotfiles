@@ -1,0 +1,77 @@
+# Source Prezto.
+if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
+fi
+# Source private settings
+if [[ -s "$HOME/.private.zsh" ]]; then
+  source "$HOME/.private.zsh"
+fi
+# Source system-specific settings
+if [[ -s "$HOME/.local.zsh" ]]; then
+  source "$HOME/.local.zsh"
+fi
+
+HISTSIZE=100000
+SAVEHIST=100000
+setopt sharehistory
+export EDITOR=vim
+export VISUAL=vim
+
+
+############ Functions #############
+# Notify when operation finished
+alert(){
+    start=$(date +%s)
+    "$@"
+    [ $(($(date +%s) - start)) -le 30 ] || notify-send --expire-time 20000 "Notification" "Long\
+ running command \"$(echo $@)\" took $(($(date +%s) - start)) seconds to finish"
+}
+# greping In All PDFs
+function pdfgrep() {
+    # shellcheck disable=SC2156
+    find . -name '*.pdf' -exec sh -c '/usr/bin/pdftotext "{}" - | grep --with-filename --label="{}" --color '"$1" \;
+}
+# grep For Processes
+alias pg="pg"
+function pg {
+    pgrep -fa "$1" | grep -E --color "$1"
+}
+# Search For Files And Page The Results
+function s() { find . -iname "*$**" | less; }
+# Source virtualenv environment
+senv() {source $HOME/.env/"$1"/bin/activate}
+####################################
+
+
+############ tmux zsh ##############
+alias setdesk="export DISPLAY=\"`tmux show-env | sed -n 's/^DISPLAY=//p'`\""
+rename_pane() { printf '\033]2;'$1'\033\\'; }
+
+up-line-or-local-history() {
+    zle set-local-history 1
+    zle up-line-or-history
+    zle set-local-history 0
+}
+zle -N up-line-or-local-history
+down-line-or-local-history() {
+    zle set-local-history 1
+    zle down-line-or-history
+    zle set-local-history 0
+}
+zle -N down-line-or-local-history
+
+# Movement in local history
+bindkey "^[OA" up-line-or-local-history # Cursor up
+bindkey "^[OB" down-line-or-local-history # Cursor down
+# Movement in global history
+bindkey "^[[1;5A" up-line-or-history # [CTRL] + Cursor up
+bindkey "^[[1;5B" down-line-or-history # [CTRL] + Cursor down
+####################################
+
+
+############ PATHS #################
+export PATH=$HOME/.local/bin:$PATH
+export PATH=/usr/local/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/usr/local/lib
+export LD_LIBRARY_PATH=/usr/local/cuda/lib64:/usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+####################################
