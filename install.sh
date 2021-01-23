@@ -1,8 +1,10 @@
 #!/bin/bash
 
-while getopts "st" opt; do
+while getopts "snt" opt; do
     case $opt in
     s) install_sublime=true ;;
+    n) no_packages=true ;;
+    t) tmux_local=true ;;
     \?) ;; # Handle error: unknown option or missing required argument.
     esac
 done
@@ -37,9 +39,6 @@ install_packages(){
     # fi
     echo "============ Install Software ==========="
     sfrs=(zsh tmux git vim curl wget cmake build-essential python-dev)
-    if [ "$install_terminator" = true ] ; then
-        sfrs+=(terminator)
-    fi
 
     for sf in ${sfrs[*]}
     do
@@ -141,7 +140,17 @@ conf_subl() {
 }
 
 
+if [ "$no_packages" = true ] ; then
+echo "Skipping installing packages with apt"
+else
 install_packages
+fi
+
+if [ "$tmux_local" = true ] ; then
+echo "Buidling and installing local tmux to ~/.local"
+sh ./tmu/tmux_local_install.sh
+fi
+
 conf_zsh
 conf_tmux
 conf_vim
