@@ -25,7 +25,7 @@ wget https://invisible-mirror.net/archives/ncurses/ncurses-6.2.tar.gz
 ############
 tar xvzf libevent-2.1.12-stable.tar.gz
 cd libevent-2.1.12-stable
-./configure --prefix=$HOME/.local --disable-shared
+./configure --prefix=$HOME/.local --disable-shared --disable-openssl
 make
 make install
 cd ..

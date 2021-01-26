@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 
 while getopts "snt" opt; do
     case $opt in
@@ -148,7 +149,7 @@ fi
 
 if [ "$tmux_local" = true ] ; then
 echo "Buidling and installing local tmux to ~/.local"
-sh ./tmu/tmux_local_install.sh
+sh ./tmux/tmux_local_install.sh
 fi
 
 conf_zsh

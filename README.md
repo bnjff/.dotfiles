@@ -12,6 +12,8 @@ Install with:
 * -n option to avoid installing apt packages (e.g. if you don't have sudo permissions)
 * -t build and install a local version of tmux (current tmux configs in this repo are tested with tmux>=3.0, so building tmux is suggested on older systems)
 
+Start a new terminal session after the install.  
+
 Some tmux shortcuts are customized. They are commented in `tmux/tmux.conf`. The main thing to know:
 * tmux prefix key is `ctrl+a`; pane splits with `-` and `|`
 
