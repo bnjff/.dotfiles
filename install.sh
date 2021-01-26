@@ -38,7 +38,7 @@ install_packages(){
     #     exit 1
     # fi
     echo "============ Install Software ==========="
-    sfrs=(zsh tmux git vim curl wget cmake build-essential python-dev)
+    sfrs=(zsh tmux git vim curl wget cmake build-essential python-dev xclip)
 
     for sf in ${sfrs[*]}
     do
